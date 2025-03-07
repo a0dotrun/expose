@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "expose",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "expose": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "bun tsc"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
+  },
+  "devDependencies": {
+    "@standard-schema/spec": "1.0.0",
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.6.1",
+    "@tsconfig/bun": "1.0.7",
+    "hono": "4.7.4",
+    "zod": "3.24.2",
+    "zod-to-json-schema": "3.24.3"
+  }
+}

@@ -29,8 +29,6 @@ const RequestSchema = z.union([
   InitializeRequestSchema,
   ListToolsRequestSchema,
   CallToolRequestSchema,
-  ListResourcesRequestSchema,
-  ListPromptsRequestSchema,
 ])
 
 type RequestSchema = z.infer<typeof RequestSchema>

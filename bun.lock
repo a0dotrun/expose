@@ -5,7 +5,6 @@
       "name": "expose",
       "devDependencies": {
         "@tsconfig/node22": "22.0.0",
-        "@types/bun": "latest",
         "@types/node": "22.13.9",
         "prettier": "3.5.3",
         "typescript": "^5",

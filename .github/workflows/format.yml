@@ -23,4 +23,4 @@ jobs:
       - run: |
           git config --local user.email "gh-actions-bot@users.noreply.github.com"
           git config --local user.name "gh-actions-bot"
-          ./scripts/format
+          make format

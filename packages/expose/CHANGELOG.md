@@ -1,5 +1,11 @@
 # expose
 
+## 0.0.3
+
+### Patch Changes
+
+- a8abced: fix package naming
+
 ## 0.0.2
 
 ### Patch Changes

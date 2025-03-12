@@ -1,4 +1,4 @@
-name: Format
+name: Format and Lint
 
 on:
   push:

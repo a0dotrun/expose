@@ -14,7 +14,7 @@ fi
 echo "Releasing version $VERSION..."
 
 # Build the package
-bun run --filter="expose" build
+bun run --filter="@a0dotrun/expose" build
 
 # Publish with changesets
 bun changeset publish

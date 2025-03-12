@@ -20,5 +20,5 @@ bun run --filter="@a0dotrun/expose" build
 bun changeset publish
 
 # Create a new Git tag and push it
-git tag "v$VERSION"
-git push origin "v$VERSION"
+git tag -f "v$VERSION"
+git push --force origin "v$VERSION"

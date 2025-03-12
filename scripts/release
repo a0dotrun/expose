@@ -2,5 +2,23 @@
 
 set -e
 
+# Get the version from packages/expose/package.json
+VERSION=$(jq -r .version packages/expose/package.json)
+
+# Ensure the version was retrieved successfully
+if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+  echo "Error: Failed to get version from package.json"
+  exit 1
+fi
+
+echo "Releasing version $VERSION..."
+
+# Build the package
 bun run --filter="expose" build
+
+# Publish with changesets
 bun changeset publish
+
+# Create a new Git tag and push it
+git tag "v$VERSION"
+git push origin "v$VERSION"

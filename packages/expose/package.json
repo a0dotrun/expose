@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "expose",
+  "name": "@a0dotrun/expose",
   "version": "0.0.2",
   "type": "module",
   "scripts": {
@@ -19,5 +19,8 @@
   },
   "devDependencies": {
     "@standard-schema/spec": "1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

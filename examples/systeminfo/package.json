@@ -1,6 +1,8 @@
 {
   "name": "@expose/example-systeminfo",
+  "private": true,
+  "version": "0.0.0",
   "dependencies": {
-    "expose": "workspace:*"
+    "@a0dotrun/expose": "workspace:*"
   }
 }

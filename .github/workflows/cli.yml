@@ -1,0 +1,64 @@
+name: Release Expose CLI
+
+on:
+  push:
+    tags:
+      - "v*" # Run on versioned tags like v1.0.0
+
+permissions:
+  contents: write # Required to create a GitHub release
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        goos: [linux, darwin]
+        goarch: [amd64, arm64]
+        include:
+          - goos: linux
+            os_name: linux
+          - goos: darwin
+            os_name: macos
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Build binary
+        run: |
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+          go build -o expose-${{ matrix.os_name }}-${{ matrix.goarch }} cmd/cli.go
+
+      - name: Create tarball
+        run: |
+          tar -czf expose-${{ matrix.os_name }}-${{ matrix.goarch }}.tar.gz expose-${{ matrix.os_name }}-${{ matrix.goarch }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: expose-${{ matrix.os_name }}-${{ matrix.goarch }}
+          path: expose-${{ matrix.os_name }}-${{ matrix.goarch }}.tar.gz
+
+  release:
+    name: Publish Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*

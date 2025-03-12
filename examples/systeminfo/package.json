@@ -1,5 +1,5 @@
 {
-  "name": "@expose/systeminfo",
+  "name": "@expose/example-systeminfo",
   "dependencies": {
     "expose": "workspace:*"
   }

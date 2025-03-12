@@ -9,8 +9,6 @@ import {
   ListToolsRequestSchema,
   ListToolsResult,
   ErrorCode,
-  ListResourcesRequestSchema,
-  ListPromptsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js"
 import { z } from "zod"
 import { Tool } from "./tool.js"
@@ -36,8 +34,8 @@ type RequestSchema = z.infer<typeof RequestSchema>
 export function createMcp(input: { tools: Tool[] }) {
   return {
     async process(message: JSONRPCRequest) {
-      const parsed = RequestSchema.parse(message)
       try {
+        const parsed = RequestSchema.parse(message)
         return await (async (): Promise<JSONRPCResponse> => {
           if (parsed.method === "initialize")
             return {
@@ -52,7 +50,7 @@ export function createMcp(input: { tools: Tool[] }) {
                   name: "expose",
                   version: "0.0.1",
                 },
-              },
+              } as InitializeResult,
             }
 
           if (parsed.method === "tools/list") {
@@ -69,7 +67,7 @@ export function createMcp(input: { tools: Tool[] }) {
                     : { type: "object" },
                   description: tool.description,
                 })),
-              },
+              } as ListToolsResult,
             } satisfies JSONRPCResponse
           }
 
@@ -113,7 +111,7 @@ export function createMcp(input: { tools: Tool[] }) {
                           text: JSON.stringify(result, null, 2),
                         },
                       ],
-                    },
+                    } as CallToolResult,
                   }) satisfies JSONRPCResponse,
               )
           }

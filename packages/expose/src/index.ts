@@ -23,7 +23,9 @@ export function create(input: { tools: Tool[]; key?: string }) {
       // })
       .post("/", async (c) => {
         const body = await c.req.json()
+        console.log("mcp request", body)
         const result = await mcp.process(body)
+        console.log("mcp response", result)
         return c.json(result)
       })
   )

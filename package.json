@@ -2,10 +2,13 @@
   "name": "expose",
   "private": true,
   "type": "module",
+  "packageManager": "bun",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "devDependencies": {
+    "@changesets/cli": "2.28.1",
     "@tsconfig/node22": "22.0.0",
     "@types/node": "22.13.9",
     "prettier": "3.5.3",

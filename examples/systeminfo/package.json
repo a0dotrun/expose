@@ -1,15 +1,6 @@
 {
-  "name": "systeminfo",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
+  "name": "@expose/systeminfo",
   "dependencies": {
-    "expose": "../../packages/expose"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "expose": "workspace:*"
   }
 }

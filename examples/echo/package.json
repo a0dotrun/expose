@@ -1,18 +1,6 @@
 {
-  "name": "echo",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run index.ts"
-  },
+  "name": "@expose/example-echo",
   "dependencies": {
-    "expose": "../../packages/expose"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "expose": "workspace:*"
   }
 }

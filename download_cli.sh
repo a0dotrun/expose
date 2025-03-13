@@ -26,7 +26,8 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
 
 case "$OS" in
-  linux|darwin) ;;
+  linux) OS_ID="unknown-linux-gnu" ;;
+  darwin) OS_ID="apple-darwin" ;;
   *)
     echo "Error: Unsupported OS '$OS'. Expose CLI only supports Linux and macOS."
     exit 1
@@ -35,10 +36,10 @@ esac
 
 case "$ARCH" in
   x86_64|amd64)
-    ARCH="amd64"
+    ARCH_ID="x86_64"
     ;;
   arm64|aarch64)
-    ARCH="arm64"
+    ARCH_ID="aarch64"
     ;;
   *)
     echo "Error: Unsupported architecture '$ARCH'. Expose CLI supports x86_64 and arm64."
@@ -49,8 +50,8 @@ esac
 # --- 3) Set download URL ---
 REPO="a0dotrun/expose"
 INSTALL_DIR="${EXPOSE_BIN_DIR:-"$HOME/.local/bin"}"
-FILE="expose-cli-${OS}-${ARCH}.tar.bz2"
-DOWNLOAD_URL="https://github.com/$REPO/releases/latest/download/$FILE"
+FILE="expose-cli-${ARCH_ID}-${OS_ID}.tar.bz2"
+DOWNLOAD_URL="https://github.com/$REPO/releases/download/stable/$FILE"
 
 # --- 4) Download the binary ---
 echo "Downloading $FILE from $DOWNLOAD_URL..."

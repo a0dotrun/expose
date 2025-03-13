@@ -15,9 +15,9 @@ func main() {
 	var timeout int
 
 	rootCmd := &cobra.Command{
-		Use:   "a0mcp",
+		Use:   "expose-cli",
 		Short: "A CLI tool for proxying MCP tools",
-		Long:  `a0mcp is a command-line tool that proxies MCP tools to a specified URL with configurations`,
+		Long:  `expose-cli is a command-line tool that proxies MCP tools to a specified URL with configurations`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if url == "" {
 				fmt.Println("Error: URL is required")

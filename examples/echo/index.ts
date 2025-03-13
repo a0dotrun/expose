@@ -1,5 +1,5 @@
-import { create } from "expose"
-import { tool } from "expose/tool"
+import { create } from "@a0dotrun/expose"
+import { tool } from "@a0dotrun/expose/tool"
 import { z } from "zod"
 
 const echo = tool({

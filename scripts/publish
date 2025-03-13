@@ -11,7 +11,7 @@ if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
   exit 1
 fi
 
-echo "Releasing version $VERSION..."
+echo "Publishing version $VERSION..."
 
 # Build the package
 bun run --filter="@a0dotrun/expose" build
@@ -19,7 +19,7 @@ bun run --filter="@a0dotrun/expose" build
 # Publish with changesets
 bun changeset publish
 
-echo "Create GH tag..."
-# Create a new Git tag and push it
-git tag -f "v$VERSION"
-git push --force origin "v$VERSION"
+# echo "Create GH tag..."
+# # Create a new Git tag and push it
+# git tag -f "v$VERSION"
+# git push --force origin "v$VERSION"

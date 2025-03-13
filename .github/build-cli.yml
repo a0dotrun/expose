@@ -1,0 +1,103 @@
+# This is a **reuseable** workflow that bundles the CLI
+# It doesn't get triggered on its own. It gets used in multiple workflows:
+#  - release.yml
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: false
+        default: ""
+        type: string
+      # Let's allow overriding the OSes and architectures in JSON array form:
+      # e.g. '["ubuntu-latest","macos-latest"]'
+      # If no input is provided, these defaults apply.
+      operating-systems:
+        type: string
+        required: false
+        default: '["ubuntu-latest","macos-latest"]'
+      architectures:
+        type: string
+        required: false
+        default: '["x86_64","aarch64"]'
+
+name: "Reusable workflow to build CLI"
+
+jobs:
+  build-cli:
+    name: Build CLI
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJson(inputs.operating-systems) }}
+        architecture: ${{ fromJson(inputs.architectures) }}
+        include:
+          - os: ubuntu-latest
+            target-suffix: unknown-linux-gnu
+            goos: linux
+            os_name: linux
+          - os: macos-latest
+            target-suffix: apple-darwin
+            goos: darwin
+            os_name: macos
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Install jq
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            sudo apt-get update && sudo apt-get install -y jq
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            brew install jq
+          fi
+
+      - name: Extract version
+        run: |
+          VERSION=$(jq -r '.version' packages/expose/package.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+
+      - name: Set GOARCH
+        run: |
+          if [[ "${{ matrix.architecture }}" == "x86_64" ]]; then
+            echo "GOARCH=amd64" >> $GITHUB_ENV
+          elif [[ "${{ matrix.architecture }}" == "aarch64" ]]; then
+            echo "GOARCH=arm64" >> $GITHUB_ENV
+          fi
+
+      - name: Build binary
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ env.GOARCH }}
+        run: |
+          TARGET="${{ matrix.architecture }}-${{ matrix.target-suffix }}"
+          echo "Building for target: ${TARGET} (GOOS=$GOOS, GOARCH=$GOARCH)"
+
+          # Create output directory
+          mkdir -p build/${TARGET}/release
+
+          # Build the binary
+          go build -o build/${TARGET}/release/expose-cli cmd/cli.go
+
+          # Create tarball
+          cd build/${TARGET}/release
+          tar -cjf expose-cli-${TARGET}.tar.bz2 expose-cli
+          cd -
+
+          # Set artifact path for upload step
+          echo "ARTIFACT=build/${TARGET}/release/expose-cli-${TARGET}.tar.bz2" >> $GITHUB_ENV
+
+          echo "Build complete: ${{ env.ARTIFACT }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: expose-cli-${{ matrix.architecture }}-${{ matrix.target-suffix }}
+          path: ${{ env.ARTIFACT }}

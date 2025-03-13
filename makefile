@@ -1,9 +1,9 @@
-.PHONY: format release
+.PHONY: format publish
 
 format:
 	@echo "Formatting code..."
 	./scripts/format
 
-release:
-	@echo "Releasing package..."
-	./scripts/release
+publish:
+	@echo "Publishing package..."
+	./scripts/publish

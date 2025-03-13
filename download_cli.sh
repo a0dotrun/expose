@@ -4,14 +4,14 @@ set -eu
 ##############################################################################
 # Expose CLI Install Script
 #
-# This script downloads the latest stable 'expose' CLI binary from GitHub releases
+# This script downloads the latest stable 'expose-cli' binary from GitHub releases
 # and installs it to your system.
 #
 # Supported OS: macOS (darwin), Linux
 # Supported Architectures: x86_64, arm64
 #
 # Usage:
-#   curl -fsSL https://github.com/a0dotrun/expose/releases/download/stable/download_cli.sh | bash
+#   curl -fsSL https://github.com/a0dotrun/expose/releases/download/stable/install.sh | bash
 #
 ##############################################################################
 
@@ -49,7 +49,7 @@ esac
 # --- 3) Set download URL ---
 REPO="a0dotrun/expose"
 INSTALL_DIR="${EXPOSE_BIN_DIR:-"$HOME/.local/bin"}"
-FILE="expose-${OS}-${ARCH}.tar.gz"
+FILE="expose-cli-${OS}-${ARCH}.tar.bz2"
 DOWNLOAD_URL="https://github.com/$REPO/releases/latest/download/$FILE"
 
 # --- 4) Download the binary ---
@@ -58,13 +58,13 @@ curl -sLf "$DOWNLOAD_URL" --output "$FILE"
 
 # --- 5) Extract & Install ---
 mkdir -p "$INSTALL_DIR"
-tar -xzf "$FILE" -C "$INSTALL_DIR"
+tar -xjf "$FILE" -C "$INSTALL_DIR"
 rm "$FILE"
 
-# Make sure it's executable
-chmod +x "$INSTALL_DIR/expose"
+# Ensure it's executable
+chmod +x "$INSTALL_DIR/expose-cli"
 
-echo "✅ Expose CLI installed successfully at $INSTALL_DIR/expose"
+echo "✅ Expose CLI installed successfully at $INSTALL_DIR/expose-cli"
 
 # --- 6) Add to PATH if needed ---
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
@@ -75,4 +75,4 @@ if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
   echo "Then reload your shell (e.g. 'source ~/.bashrc', 'source ~/.zshrc')."
 fi
 
-echo "Run 'expose --help' to get started!"
+echo "Run 'expose-cli --help' to get started!"

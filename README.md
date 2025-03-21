@@ -103,7 +103,9 @@ MACOS Claude desktop MCP config path: `~/Library/Application Support/Claude/clau
 _replace localhost with your public URL_
 
 ---
-expose is created by [@_sanchitrk](https://x.com/_sanchitrk) at [a0](https://a0.run)
+
+expose is created by [@\_sanchitrk](https://x.com/_sanchitrk) at [a0](https://a0.run)
 
 ### Acknowledgements
+
 I was inspired by [opencontrol](https://github.com/toolbeam/opencontrol)

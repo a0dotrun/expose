@@ -1,4 +1,7 @@
 ---
+title: Expose
+description: Easily build MCP tools for Claude desktop app
+---
 
 Expose lets you build MCP tools that you can invoke with MCP client like Claude desktop app.
 
@@ -84,10 +87,12 @@ const app = create({
    ```bash
    npm run dev
    ```
-You can also deploy the server and note down the public URL.
+
+   You can also deploy the server and note down the public URL.
 
 6. **Register in Claude desktop app**
-MACOS Claude desktop MCP config path: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   MACOS Claude desktop MCP config path: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
 ```json
 {
   ...
@@ -100,10 +105,13 @@ MACOS Claude desktop MCP config path: `~/Library/Application Support/Claude/clau
   ...
 }
 ```
+
 _replace localhost with your public URL_
 
 ---
-expose is created by [@_sanchitrk](https://x.com/_sanchitrk) at [a0](https://a0.run)
+
+expose is created by [@\_sanchitrk](https://x.com/_sanchitrk) at [a0](https://a0.run)
 
 ### Acknowledgements
+
 I was inspired by [opencontrol](https://github.com/toolbeam/opencontrol)

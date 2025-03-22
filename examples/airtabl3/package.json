@@ -1,0 +1,9 @@
+{
+  "name": "@expose/example-airtabl3",
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "@a0dotrun/expose": "workspace:*",
+    "airtable": "0.12.2"
+  }
+}
